@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <rosparam file="$(find rrbot_control)/config/params.yaml" command="load"/>
+
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/rrbot" args="joint1_position_controller joint2_position_controller joint_state_controller"/>
+
+   <node name="publish_angles" pkg="MYROBOT_control" type="publish_angles"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/rrbot/joint_states" />
+  </node>
+
+</launch>
